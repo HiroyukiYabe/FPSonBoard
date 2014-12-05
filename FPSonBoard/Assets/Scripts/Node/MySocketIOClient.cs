@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿//SocketIOClientを利用して,Socket.IOで立てたNode.jsサーバと通信するためのクラス
+//外部でこのクラスを生成し,イベントハンドラ等を設定する
+
+
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,8 +10,8 @@ using SocketIOClient.Messages;
 
 using DICT = System.Collections.Generic.Dictionary<string,object>;
 
-
-public class MySocketIO {
+namespace MySocketIO{
+public class MySocketIOClient {
 
 	SocketIOClient.Client socket;
 	System.Guid guid;
@@ -31,12 +35,15 @@ public class MySocketIO {
 	}
 	Queue<MyMessage> msgQueue = new Queue<MyMessage>();
 	Action<MyMessage> ExecuteMsg; 
+	bool connected;
 
 	//socketの初期化
-	public MySocketIO(string url){
+	public MySocketIOClient(string url){
 		guid=System.Guid.NewGuid();
 		_uuid=guid.ToString();
+		connected=false;
 		socket = new SocketIOClient.Client(url);
+		
 		socket.On("connect", (fn) => {
 			Debug.Log ("succeed connection - socket");
 			Dictionary<string, string> args = new Dictionary<string, string>();
@@ -44,6 +51,7 @@ public class MySocketIO {
 			socket.Emit("connected", args);
 		});
 		socket.On("playerID", (_playerID) => {
+			connected=true;
 			playerID = _playerID.Json.GetFirstArgAs<int>();
 			Debug.Log ("playerID:"+playerID);
 		});
@@ -58,10 +66,10 @@ public class MySocketIO {
 			string eve = msg["event"].ToString();
 			DICT mes = msg["message"] as DICT;
 
-			if(sen!=0){//Node.jsに接続直後、ID:0（誰のIDでもない）からのメッセージを受信するバグが発生したため
+			//if(sen!=0){//Node.jsに接続直後、ID:0（誰のIDでもない）からのメッセージを受信するバグが発生したため
 				MyMessage message = new MyMessage(sen,eve,mes);
 				msgQueue.Enqueue(message);
-			}
+			//}
 		});
 		socket.Error += (sender, e) => {
 			Debug.LogWarning ("socket Error: " + e.Message.ToString ());
@@ -86,9 +94,11 @@ public class MySocketIO {
 		socket.Connect();
 	}
 	public void Close(){
+		this.msgQueue.Clear();
 		socket.Close();
+		//socket.Dispose();
 	}
-	public bool isConnected{get{return socket.IsConnected;}}
+	public bool isConnected{get{return socket.IsConnected && this.connected;}}
 
 	//メッセージ送信用の拡張関数
 	//第1引数のイベント名で第2引数のメッセージ（辞書形式）を送信する
@@ -114,5 +124,7 @@ static class ParseObject{
 	public static float ToFloat(this object o){
 		return float.Parse(o.ToString());
 	}
+}
+
 }
 

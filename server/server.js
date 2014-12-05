@@ -37,13 +37,11 @@ io.sockets.on("connection", function (socket) {
     msg = JSON.parse(data);
     //console.log(msg);
     io.sockets.json.emit("my message",msg);
-
-    ///io.sockets.json.emit("message", data);
   });
 
   // 接続終了組み込みイベント(接続元ユーザを削除し、他ユーザへ通知)
   socket.on("disconnect", function () {
-    console.log("Event:disconect");
+    console.log("Event:disconnect");
     if (userHash[socket.id]) {
       var msg = userHash[socket.id] + "が退出しました";
       delete userHash[socket.id];

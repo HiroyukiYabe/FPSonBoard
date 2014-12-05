@@ -1,7 +1,6 @@
-﻿//単純なキャラクタ移動
+﻿//高低差のあるNavmeshに対応したキャラクタ移動AI
 //Attach to Character
 
-//ポーズ対応必要なし
 
 using UnityEngine;
 using System.Collections;

@@ -2,30 +2,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MySocketIO;
 
 public class NodeClient : MonoBehaviour {
-
-	MySocketIO sock;
+	
+	MySocketIOClient sock;
 	FPSInputController input;
-	GameObject player;
-	GameObject rival;
-
+	Transform player;
+	Transform rival;
+	
 	// Use this for initialization
 	void Awake () {
 		input = GameObject.FindWithTag("Player").GetComponent<FPSInputController>();
-		player = GameObject.FindWithTag("Player");
-		rival = GameObject.FindWithTag("Rival");
-
-		/*sock = new MySocketIO("http://127.0.0.1:8888/");
-		sock.AddListener("Move",OnMove);
-		sock.AddListener("SyncPos",OnSyncPos);
-		sock.Open();*/
+		player = GameObject.FindWithTag("Player").transform;
+		rival = GameObject.FindWithTag("Rival").transform;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(sock!=null && sock.isConnected){
-		//Move();
+		Move();
 		SyncPos();
 		sock.OnUpdate();
 		}
@@ -39,27 +35,27 @@ public class NodeClient : MonoBehaviour {
 	}
 	void SyncPos(){
 		Dictionary<string, object> dic = new Dictionary<string,object>();
-		Vector3 playpos = player.transform.position;
-		Vector3 playrot = player.transform.rotation.eulerAngles;
+		Vector3 playpos = player.position;
+		Vector3 playrot = player.rotation.eulerAngles;
 		dic.Add("posx",playpos.x);dic.Add("posy",playpos.y);dic.Add("posz",playpos.z);
 		dic.Add("rotx",playrot.x);dic.Add("roty",playrot.y);dic.Add("rotz",playrot.z);
 		sock.Emit("SyncPos",dic);
 	}
 
-	void OnMove(MySocketIO.MyMessage msg){
+	void OnMove(MySocketIOClient.MyMessage msg){
 		if(msg.isMine){
 			Dictionary<string,object> dict = msg.message;
 			Vector3 vec = new Vector3(dict["x"].ToFloat(),dict["y"].ToFloat(),dict["z"].ToFloat());
 			input.directionVector = vec;
 		}
 	}
-	void OnSyncPos(MySocketIO.MyMessage msg){
+	void OnSyncPos(MySocketIOClient.MyMessage msg){
 		if(!msg.isMine){
 			Dictionary<string,object> dict = msg.message;
 			Vector3 pos = new Vector3(dict["posx"].ToFloat(),dict["posy"].ToFloat(),dict["posz"].ToFloat());
 			Vector3 rot = new Vector3(dict["rotx"].ToFloat(),dict["roty"].ToFloat(),dict["rotz"].ToFloat());
-			rival.transform.position = pos;
-			rival.transform.rotation = Quaternion.Euler(rot);
+			rival.position = pos;
+			rival.rotation = Quaternion.Euler(rot);
 		}
 	}
 
@@ -69,9 +65,11 @@ public class NodeClient : MonoBehaviour {
 		if (sock==null || !sock.isConnected) {
 			if (GUILayout.Button ("start Connection")) {
 				Debug.Log ("Try Connection");
-				sock = new MySocketIO(text);
-				sock.AddListener("Move",OnMove);
-				sock.AddListener("SyncPos",OnSyncPos);
+				if(sock==null){
+					sock = new MySocketIOClient(text);
+					sock.AddListener("Move",OnMove);
+					sock.AddListener("SyncPos",OnSyncPos);
+				}
 				sock.Open();
 			}
 		} else {
@@ -82,5 +80,5 @@ public class NodeClient : MonoBehaviour {
 		}
 	}
 
-	void OnApplicationQuit(){sock.Close();}
+	void OnApplicationQuit(){if(sock!=null) sock.Close();}
 }
