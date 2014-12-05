@@ -16,7 +16,7 @@ public class Node : MonoBehaviour {
 	string _uuid;
 	int playerID;
 
-	struct myMessage{
+	public struct myMessage{
 		public int sender;
 		public string eventName;
 		public Dictionary<string, object> message;
@@ -130,10 +130,6 @@ public class Node : MonoBehaviour {
 		dict.Add("sender",playerID);
 		dict.Add("event",_event);
 		dict.Add("message",message);
-		//socket.Send(dict);
-		//dict.Add("message",SimpleJson.SimpleJson.SerializeObject(message));
-		//Debug.Log(SimpleJson.SimpleJson.SerializeObject(dict));
-		//string json = SimpleJson.SimpleJson.SerializeObject(dict);
 		string json = MiniJSON.Json.Serialize(dict);
 		//Debug.Log("EMIT:"+json);
 		socket.Send(json);
@@ -151,16 +147,14 @@ public class Node : MonoBehaviour {
 				Debug.Log ("Closing");
 				socket.Close ();
 			}
-		}*/
+		}
 		if (GUI.Button (new Rect (70, 20, 150, 30), "SEND")) {
-			ExecuteAction+=ExecuteMsg;
-			
 			Debug.Log ("SEND");
 			Dictionary<string, object> args = new Dictionary<string, object>();
 			args.Add("testEvent", "testMsg");
 			args.Add("testEvent2", "testMsg2");
 			this.Emit("test",args);
-		}
+		}*/
 	}
 	
 	void OnApplicationQuit(){
