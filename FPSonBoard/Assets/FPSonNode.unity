@@ -3795,6 +3795,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1783247481}
   - 114: {fileID: 1783247482}
+  - 114: {fileID: 1783247483}
   m_Layer: 0
   m_Name: Assault Rifle Low Free
   m_TagString: Untagged
@@ -3843,6 +3844,26 @@ MonoBehaviour:
   clickPos: {x: 0, y: 0}
   offsetPos: {x: 0, y: 0}
   divider: 80
+--- !u!114 &1783247483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1783247480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4202e41584e04496be97a480abb61ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theIRMain: {fileID: 0}
+  theIR1: {fileID: 0}
+  theIR2: {fileID: 0}
+  theIR3: {fileID: 0}
+  theIR4: {fileID: 0}
+  WiiObject: {fileID: 33797135}
+  player: {fileID: 0}
+  assaultRifle: {fileID: 1783247481}
+  totalRemotes: 0
 --- !u!1 &1804999588
 GameObject:
   m_ObjectHideFlags: 0
