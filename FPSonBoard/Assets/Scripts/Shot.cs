@@ -6,21 +6,31 @@ public class Shot : MonoBehaviour {
 	public GameObject bullet;
 	public float speed;
 	public float interval;
-	float timer;
+	float timer; 
+
+	public GameObject rifle;
+	private WiiRemote remote;
+
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start ()  {
+		remote =  rifle.GetComponent<WiiRemote>();
 	}
 	
 	// Update is called once per frame
 	void  Update () {
 		timer += Time.deltaTime;
 
-		if (Input.GetButton ("Fire1") && timer>interval) {
+		if ( remote.buttonBPressed && timer>interval){
 			Shoot();
 			timer=0f;
 		}
+
+
+//		if (Input.GetButton ("Fire1") && timer>interval) {
+//			Shoot();
+//			timer=0f;
+//		}
 	}
 	
 	void Shoot(){
