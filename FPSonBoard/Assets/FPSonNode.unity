@@ -121,7 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -140,6 +139,8 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
 --- !u!1 &98754592
@@ -849,6 +850,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
 --- !u!4 &419527666
 Transform:
   m_ObjectHideFlags: 0
@@ -1968,7 +1971,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: .1953125, g: .1953125, b: .1953125, a: 1}
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
@@ -2155,7 +2158,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: .1953125, g: .1953125, b: .1953125, a: 1}
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
@@ -2657,7 +2660,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400030, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -16.1900005
+      value: -26.1900005
       objectReference: {fileID: 0}
     - target: {fileID: 400030, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3559,7 +3562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WiiObject: {fileID: 580000272}
   assaultRifle: {fileID: 1783247481}
-  buttonBPressed: 0
+  buttonBPressed: 1
   totalRemotes: 0
 --- !u!1 &1802321801
 GameObject:
@@ -4233,7 +4236,7 @@ Transform:
   m_PrefabInternal: {fileID: 1227724675}
   m_GameObject: {fileID: 1996477056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.1900005, y: 18.1350002, z: -11.6330004}
+  m_LocalPosition: {x: -26.1900005, y: 18.1350002, z: -11.6330004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2037288527}

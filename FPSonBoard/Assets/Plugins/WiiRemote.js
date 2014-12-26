@@ -94,6 +94,13 @@ if(Wii.IsActive(whichRemote))
 			} else {
 				buttonBPressed = false;
 			}
+			
+			
+			assaultRifle.localRotation = Quaternion.Slerp(transform.localRotation,
+				Quaternion.Euler(wiiAccel.y*90.0, wiiAccel.z *  180.0,wiiAccel.x*-90.0),5.0);
+
+			
+			Debug.Log(Wii.GetIRPosition(whichRemote).ToString("#.0000"));
 
 
 			inputDisplay = inputDisplay + "\nIR      "+Wii.GetIRPosition(whichRemote).ToString("#.0000");
