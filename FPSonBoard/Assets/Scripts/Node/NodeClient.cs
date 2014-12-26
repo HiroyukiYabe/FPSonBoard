@@ -7,28 +7,38 @@ using MySocketIO;
 public class NodeClient : MonoBehaviour {
 	
 	MySocketIOClient sock;
-	FPSInputController input;
+	//FPSInputController input;
 	Transform player;
+	PlayerController playerCon;
 	Transform rival;
+	PlayerController rivalCon;
+	
 	
 	// Use this for initialization
 	void Awake () {
-		input = GameObject.FindWithTag("Player").GetComponent<FPSInputController>();
+		//input = GameObject.FindWithTag("Player").GetComponent<FPSInputController>();
 		player = GameObject.FindWithTag("Player").transform;
+		playerCon = player.GetComponent<PlayerController>();
 		rival = GameObject.FindWithTag("Rival").transform;
+		rivalCon = rival.GetComponent<PlayerController>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		Vector3 input = new Vector3(Input.GetAxis("Horizontal"),0f,Input.GetAxis("Vertical"));
+
 		if(sock!=null && sock.isConnected){
-		//Move();
-		//SyncPos();
-		sock.OnUpdate();
+			//Move(input);
+			SyncPos();
+			if(Input.GetButton ("Fire1")) Shoot();
+			sock.OnUpdate();
 		}
+		//else playerCon.moveDir = input;
+		playerCon.moveDir = input;
 	}
 
-	void Move(){
-		Vector3 vec = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+	void Move(Vector3 vec){
 		Dictionary<string, object> dic = new Dictionary<string,object>();
 		dic.Add("x",vec.x);dic.Add("y",vec.y);dic.Add("z",vec.z);
 		sock.Emit("Move",dic);
@@ -41,12 +51,17 @@ public class NodeClient : MonoBehaviour {
 		dic.Add("rotx",playrot.x);dic.Add("roty",playrot.y);dic.Add("rotz",playrot.z);
 		sock.Emit("SyncPos",dic);
 	}
+	void Shoot(){
+		Dictionary<string, object> dic = new Dictionary<string,object>();
+		sock.Emit("Shoot",dic);
+	}
 
 	void OnMove(MySocketIOClient.MyMessage msg){
 		if(msg.isMine){
 			Dictionary<string,object> dict = msg.message;
 			Vector3 vec = new Vector3(dict["x"].ToFloat(),dict["y"].ToFloat(),dict["z"].ToFloat());
-			input.directionVector = vec;
+			playerCon.moveDir = vec;
+			//input.directionVector = vec;
 		}
 	}
 	void OnSyncPos(MySocketIOClient.MyMessage msg){
@@ -57,6 +72,10 @@ public class NodeClient : MonoBehaviour {
 			rival.position = pos;
 			rival.rotation = Quaternion.Euler(rot);
 		}
+	}
+	void OnShoot(MySocketIOClient.MyMessage msg){
+		if(msg.isMine) playerCon.Shoot();
+		else rivalCon.Shoot();
 	}
 
 	private string text = "http://127.0.0.1:8888/";
@@ -69,6 +88,7 @@ public class NodeClient : MonoBehaviour {
 					sock = new MySocketIOClient(text);
 					sock.AddListener("Move",OnMove);
 					sock.AddListener("SyncPos",OnSyncPos);
+					sock.AddListener("Shoot",OnShoot);
 				}
 				sock.Open();
 			}
