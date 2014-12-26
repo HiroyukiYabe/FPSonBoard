@@ -1083,6 +1083,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 580000273}
   - 114: {fileID: 580000274}
+  - 114: {fileID: 580000275}
   m_Layer: 0
   m_Name: Wii
   m_TagString: Untagged
@@ -1114,6 +1115,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dba9559d80dc84c2f92d7aa30050c217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &580000275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 580000272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b7bfd75006b4e47921824ac7ee55d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WiiObject: {fileID: 580000272}
+  Player: {fileID: 1996477057}
+  WiiBoardInput: {x: 0, y: 0, z: 0}
+  totalRemotes: 0
 --- !u!1001 &588480027
 Prefab:
   m_ObjectHideFlags: 0
@@ -4325,6 +4341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WiiObject: {fileID: 580000272}
   Player: {fileID: 1996477057}
+  WiiBoardInput: {x: 0, y: 0, z: 0}
   totalRemotes: 0
 --- !u!114 &1996477064
 MonoBehaviour:

@@ -5,6 +5,7 @@ var WiiObject: GameObject;
 var Wii;
 var Player: Transform;
 var Input;
+var WiiBoardInput: Vector3;
 
 Wii = WiiObject.GetComponent("Wii");
 Input = GetComponent("FPSInputController");
@@ -62,7 +63,8 @@ function Update () {
 			var vecBottomRight : Vector2 = Vector2(-1.0 * Mathf.Sin(Mathf.PI/4.0),Mathf.Cos(Mathf.PI/4.0)) * theBalanceBoard.y;
 			var center : Vector2 = vecTopRight + vecTopLeft + vecBottomRight + vecBottomLeft;
 			//Player.Translate(Vector3(center.x/100.0,0,center.y/100.0));
-			Input.directionVector = Vector3(center.x*5,0,center.y*5);
+			//Input.directionVector = Vector3(center.x*5,0,center.y*5);
+			WiiBoardInput = Vector3(center.x,0,center.y);
 		
 		}
 	}

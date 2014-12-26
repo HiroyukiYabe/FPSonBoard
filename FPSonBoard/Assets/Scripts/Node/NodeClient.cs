@@ -12,6 +12,7 @@ public class NodeClient : MonoBehaviour {
 	PlayerController playerCon;
 	Transform rival;
 	PlayerController rivalCon;
+	wiiBoard Wii;
 	
 	
 	// Use this for initialization
@@ -21,11 +22,13 @@ public class NodeClient : MonoBehaviour {
 		playerCon = player.GetComponent<PlayerController>();
 		rival = GameObject.FindWithTag("Rival").transform;
 		rivalCon = rival.GetComponent<PlayerController>();
+		Wii = GameObject.Find("Wii").GetComponent<wiiBoard>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 input = new Vector3(Input.GetAxis("Horizontal"),0f,Input.GetAxis("Vertical"));
+		//Vector3 input = new Vector3(Input.GetAxis("Horizontal"),0f,Input.GetAxis("Vertical"));
+		Vector3 input = Wii.WiiBoardInput;
 
 		if(sock!=null && sock.isConnected){
 			//Move(input);
@@ -34,7 +37,7 @@ public class NodeClient : MonoBehaviour {
 			sock.OnUpdate();
 		}
 		//else playerCon.moveDir = input;
-		playerCon.moveDir = input;
+		playerCon.moveDir = input/30f;
 	}
 
 
