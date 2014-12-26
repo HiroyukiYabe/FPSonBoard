@@ -1166,7 +1166,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1807962837}
   m_GameObject: {fileID: 594736066}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82845a9213df2415a9c87835f5b4b55f, type: 3}
   m_Name: 
@@ -3701,6 +3701,10 @@ Prefab:
     - target: {fileID: 100030, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
       propertyPath: m_TagString
       value: Rival
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400010, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
