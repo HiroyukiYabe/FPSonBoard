@@ -1,4 +1,4 @@
-﻿static var whichRemote: int;
+﻿ static var whichRemote: int;
 
 //var theIRMain: GUITexture;
 //var theIR1:    GUITexture;
@@ -96,12 +96,21 @@ if(Wii.IsActive(whichRemote))
 			}
 			
 			
-			assaultRifle.localRotation = Quaternion.Slerp(transform.localRotation,
-				Quaternion.Euler(wiiAccel.y*90.0, wiiAccel.z *  180.0,wiiAccel.x*-90.0),5.0);
+//			assaultRifle.localRotation = Quaternion.Slerp(transform.localRotation,
+//				Quaternion.Euler(/* tate*/wiiAccel.y*90.0,/*yoko*/0.0 ,0.0),5.0);   /*tate*/
+			 if (Wii.GetIRPosition(whichRemote).x > -1.0){
+//			 assaultRifle.localRotation = Quaternion.Slerp(transform.localRotation,
+//				Quaternion.Euler(/* tate*/ wiiAccel.y*90.0,/*yoko*/(Wii.GetIRPosition(whichRemote).x - 0.5 )*180.0 ,0.0),5.0);   /*yoko*/
+			 assaultRifle.localRotation = Quaternion.Slerp(transform.localRotation,
+				Quaternion.Euler(/* tate*/ (Wii.GetIRPosition(whichRemote).y - 0.5) *  -180.0,/*yoko*/(Wii.GetIRPosition(whichRemote).x - 0.5 )*180.0 ,0.0),5.0);   /*yoko*/
+
+			Debug.Log(wiiAccel.x);
+			 }
+			
 
 			
 			Debug.Log(Wii.GetIRPosition(whichRemote).ToString("#.0000"));
-
+			Debug.Log(Wii.GetWiimoteAcceleration(whichRemote).ToString("#.0000"));
 
 			inputDisplay = inputDisplay + "\nIR      "+Wii.GetIRPosition(whichRemote).ToString("#.0000");
 			inputDisplay = inputDisplay + "\nIR rot  "+Wii.GetIRRotation(whichRemote).ToString();
