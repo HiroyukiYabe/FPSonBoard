@@ -374,6 +374,7 @@ MonoBehaviour:
   bullet: {fileID: 100000, guid: 9d9a4cdbde95b4cd4b7d4f3f3fb26cc4, type: 2}
   speed: 10
   interval: .200000003
+  rifle: {fileID: 1783247480}
 --- !u!1 &219157258
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,6 +1091,46 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1807962837}
   m_GameObject: {fileID: 552574769}
   m_Mesh: {fileID: 4300018, guid: e7da0a6b88725fd49be111412a5416be, type: 3}
+--- !u!1 &580000272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100154, guid: 33e0ee18e5897493a8ab4d5e260f12f4, type: 2}
+  m_PrefabInternal: {fileID: 1606463978}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 580000273}
+  - 114: {fileID: 580000274}
+  m_Layer: 0
+  m_Name: Wii
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &580000273
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400154, guid: 33e0ee18e5897493a8ab4d5e260f12f4, type: 2}
+  m_PrefabInternal: {fileID: 1606463978}
+  m_GameObject: {fileID: 580000272}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+--- !u!114 &580000274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 33e0ee18e5897493a8ab4d5e260f12f4,
+    type: 2}
+  m_PrefabInternal: {fileID: 1606463978}
+  m_GameObject: {fileID: 580000272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba9559d80dc84c2f92d7aa30050c217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &594736066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,6 +1174,7 @@ MonoBehaviour:
   bullet: {fileID: 100000, guid: 9d9a4cdbde95b4cd4b7d4f3f3fb26cc4, type: 2}
   speed: 10
   interval: .200000003
+  rifle: {fileID: 0}
 --- !u!1 &611082874
 GameObject:
   m_ObjectHideFlags: 0
@@ -2649,7 +2691,12 @@ Prefab:
       propertyPath: UIText
       value: 
       objectReference: {fileID: 833940315}
-    m_RemovedComponents: []
+    - target: {fileID: 11400000, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
+      propertyPath: rifle
+      value: 
+      objectReference: {fileID: 1783247480}
+    m_RemovedComponents:
+    - {fileID: 11400004, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
   m_RootGameObject: {fileID: 1996477056}
   m_IsPrefabParent: 0
@@ -3286,6 +3333,50 @@ Transform:
   - {fileID: 1140121381}
   m_Father: {fileID: 797803112}
   m_RootOrder: 8
+--- !u!1001 &1606463978
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400154, guid: 33e0ee18e5897493a8ab4d5e260f12f4, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400154, guid: 33e0ee18e5897493a8ab4d5e260f12f4, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400154, guid: 33e0ee18e5897493a8ab4d5e260f12f4, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400154, guid: 33e0ee18e5897493a8ab4d5e260f12f4, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400154, guid: 33e0ee18e5897493a8ab4d5e260f12f4, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400154, guid: 33e0ee18e5897493a8ab4d5e260f12f4, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400154, guid: 33e0ee18e5897493a8ab4d5e260f12f4, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400154, guid: 33e0ee18e5897493a8ab4d5e260f12f4, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 33e0ee18e5897493a8ab4d5e260f12f4, type: 2}
+  m_RootGameObject: {fileID: 580000272}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1634373022
 GameObject:
   m_ObjectHideFlags: 0
@@ -3294,7 +3385,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1634373023}
-  - 114: {fileID: 1634373024}
   m_Layer: 0
   m_Name: Assault Rifle Low Free
   m_TagString: Untagged
@@ -3328,21 +3418,6 @@ Transform:
   - {fileID: 594736067}
   m_Father: {fileID: 1933838680}
   m_RootOrder: 0
---- !u!114 &1634373024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400004, guid: 6f13d820adf0c483fbc03ba78b1f4d5e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1807962837}
-  m_GameObject: {fileID: 1634373022}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf4fc9a59711ce14ab57eaf1337f5b15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clickPos: {x: 0, y: 0}
-  offsetPos: {x: 0, y: 0}
-  divider: 80
 --- !u!1 &1677293343
 GameObject:
   m_ObjectHideFlags: 0
@@ -3474,18 +3549,18 @@ Transform:
 --- !u!114 &1783247482
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400004, guid: 6f13d820adf0c483fbc03ba78b1f4d5e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1227724675}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1783247480}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf4fc9a59711ce14ab57eaf1337f5b15, type: 3}
+  m_Script: {fileID: 11500000, guid: f22de3919d8054cd797b0c840e035763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickPos: {x: 0, y: 0}
-  offsetPos: {x: 0, y: 0}
-  divider: 80
+  WiiObject: {fileID: 580000272}
+  assaultRifle: {fileID: 1783247481}
+  buttonBPressed: 0
+  totalRemotes: 0
 --- !u!1 &1802321801
 GameObject:
   m_ObjectHideFlags: 0
@@ -3633,6 +3708,7 @@ Prefab:
     - {fileID: 11400008, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
     - {fileID: 11400002, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
     - {fileID: 8100000, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
+    - {fileID: 11400004, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
   m_RootGameObject: {fileID: 1209354253}
   m_IsPrefabParent: 0
@@ -4138,6 +4214,7 @@ GameObject:
   - 114: {fileID: 1996477059}
   - 114: {fileID: 1996477058}
   - 114: {fileID: 1996477062}
+  - 114: {fileID: 1996477063}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4277,6 +4354,20 @@ MonoBehaviour:
   life: 100
   damage: 20
   UIText: {fileID: 833940315}
+--- !u!114 &1996477063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1996477056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b7bfd75006b4e47921824ac7ee55d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WiiObject: {fileID: 580000272}
+  Player: {fileID: 1996477057}
+  totalRemotes: 0
 --- !u!1 &1999522718
 GameObject:
   m_ObjectHideFlags: 0
