@@ -49,6 +49,9 @@ namespace MyWebsocket{
 			ws.OnMessage+=(sender, e) => {
 				Debug.Log ("message:"+e.Data);
 			};
+			ws.OnError+=(sender, e) => {
+				Debug.LogWarning("error:"+e.Message);
+			};
 
 		}
 		

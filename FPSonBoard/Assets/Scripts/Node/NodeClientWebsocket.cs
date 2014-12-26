@@ -29,7 +29,7 @@ public class NodeClientWebsocket : MonoBehaviour {
 	void Update () {
 		if(sock!=null && sock.isConnected){
 			//Move();
-			SyncPos();
+			//SyncPos();
 			sock.OnUpdate();
 		}
 	}
@@ -66,7 +66,7 @@ public class NodeClientWebsocket : MonoBehaviour {
 		}
 	}*/
 	
-	private string text = "http://127.0.0.1:8888/";
+	private string text = "ws://127.0.0.1:8888/";
 	void OnGUI () {
 		text = GUILayout.TextField(text);
 		if (sock==null || !sock.isConnected) {
@@ -74,7 +74,7 @@ public class NodeClientWebsocket : MonoBehaviour {
 				Debug.Log ("Try Connection");
 				
 				if(sock==null){
-					sock = new WebsocketClient("ws://127.0.0.1:8888/");
+					sock = new WebsocketClient(text);
 					Debug.Log("null");
 					//sock = new MySocketIOClient(text);
 					//sock.AddListener("Move",OnMove);
@@ -87,6 +87,12 @@ public class NodeClientWebsocket : MonoBehaviour {
 				Debug.Log ("Closing");
 				sock.Close ();
 			}
+		}
+		if (GUILayout.Button ("send")) {
+			Debug.Log ("send");
+			Dictionary<string, object> dic = new Dictionary<string,object>();
+			dic.Add("a",1);
+			sock.Emit ("test",dic);
 		}
 	}
 	

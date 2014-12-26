@@ -18,11 +18,14 @@ public class Shot : MonoBehaviour {
 		timer += Time.deltaTime;
 
 		if (Input.GetButton ("Fire1") && timer>interval) {
-			GameObject bul = (GameObject)Instantiate (bullet, transform.position, transform.rotation);
-			bul.rigidbody.AddForce(transform.forward*speed,ForceMode.VelocityChange);
+			Shoot();
 			timer=0f;
 		}
-			
-
 	}
+	
+	void Shoot(){
+		GameObject bul = (GameObject)Instantiate (bullet, transform.position, transform.rotation);
+		bul.rigidbody.AddForce(transform.forward*speed,ForceMode.VelocityChange);
+	}
+
 }

@@ -21,8 +21,8 @@ public class NodeClient : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(sock!=null && sock.isConnected){
-		Move();
-		SyncPos();
+		//Move();
+		//SyncPos();
 		sock.OnUpdate();
 		}
 	}

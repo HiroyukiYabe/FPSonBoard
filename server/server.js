@@ -4,6 +4,7 @@ io.set('log level', 3);
 var userHash = {};
 var playerID=0;
 
+
 // イベントの定義
 io.sockets.on("connection", function (socket) {
   console.log("connection");

@@ -17,6 +17,7 @@ public class MySocketIOClient {
 	System.Guid guid;
 	string _uuid;
 	static int playerID;//Node Serverから返される一意の番号. 現在の実装では切断して再接続すると番号が変わる
+	public int myID {get {return playerID;}}
 
 	//独自に定義したメッセージの容れ物
 	public class MyMessage{
@@ -72,7 +73,7 @@ public class MySocketIOClient {
 			//}
 		});
 		socket.Error += (sender, e) => {
-			Debug.LogWarning ("socket Error: " + e.Message.ToString ());
+				Debug.LogWarning ("socket Error: " + e.Message );//+ ";"+e.Exception.Message);
 		};
 	}
 
@@ -96,7 +97,6 @@ public class MySocketIOClient {
 	public void Close(){
 		this.msgQueue.Clear();
 		socket.Close();
-		//socket.Dispose();
 	}
 	public bool isConnected{get{return socket.IsConnected && this.connected;}}
 
@@ -112,6 +112,7 @@ public class MySocketIOClient {
 		//Node Serverとは、全てイベント名”my message”としてやり取りする
 		socket.Emit("my message",json);
 	}
+
 
 }
 
