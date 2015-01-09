@@ -10,9 +10,12 @@ public class NodeClient : MonoBehaviour {
 	//FPSInputController input;
 	Transform player;
 	PlayerController playerCon;
+	Transform playerRifle;
 	Transform rival;
 	PlayerController rivalCon;
-	wiiBoard Wii;
+	Transform rivalRifle;
+	wiiBoard WBoard;
+	WiiRemote WRemote;
 	
 	
 	// Use this for initialization
@@ -20,25 +23,30 @@ public class NodeClient : MonoBehaviour {
 		//input = GameObject.FindWithTag("Player").GetComponent<FPSInputController>();
 		player = GameObject.FindWithTag("Player").transform;
 		playerCon = player.GetComponent<PlayerController>();
+		playerRifle = player.FindChild("Main Camera/Assault Rifle Low Free");
 		rival = GameObject.FindWithTag("Rival").transform;
 		rivalCon = rival.GetComponent<PlayerController>();
-		Wii = GameObject.Find("Wii").GetComponent<wiiBoard>();
+		rivalRifle = rival.FindChild("Main Camera/Assault Rifle Low Free");
+		WBoard = GameObject.Find("Wii").GetComponent<wiiBoard>();
+		WRemote = GameObject.Find("Wii").GetComponent<WiiRemote>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		Vector3 input = new Vector3(Input.GetAxis("Horizontal"),0f,Input.GetAxis("Vertical"));
-		if(input == Vector3.zero)
-			input = Wii.WiiBoardInput/30f;
+		if(WBoard != null && input == Vector3.zero)
+			input = WBoard.WiiBoardInput/30f;
 
 		if(sock!=null && sock.isConnected){
 			//Move(input);
 			SyncPos();
-			if(Input.GetButton ("Fire1")) Shoot();
+			if(Input.GetButton ("Fire1") || (WRemote != null && WRemote.buttonBPressed)) Shoot();
 			sock.OnUpdate();
 		}
 		//else playerCon.moveDir = input;
 		playerCon.moveDir = input;
+		playerCon.rotateFlag = WRemote==null ? 0f : 
+			(WRemote.buttonRightPressed ? 1f : (WRemote.buttonLeftPressed ? -1f : 0f) );
 	}
 
 
@@ -51,8 +59,10 @@ public class NodeClient : MonoBehaviour {
 		Dictionary<string, object> dic = new Dictionary<string,object>();
 		Vector3 playpos = player.position;
 		Vector3 playrot = player.rotation.eulerAngles;
+		Vector3 riflerot = playerRifle.localRotation.eulerAngles;
 		dic.Add("posx",playpos.x);dic.Add("posy",playpos.y);dic.Add("posz",playpos.z);
 		dic.Add("rotx",playrot.x);dic.Add("roty",playrot.y);dic.Add("rotz",playrot.z);
+		dic.Add("riflex",riflerot.x);dic.Add("rifley",riflerot.y);dic.Add("riflez",riflerot.z);
 		sock.Emit("SyncPos",dic);
 	}
 	void Shoot(){
@@ -73,8 +83,10 @@ public class NodeClient : MonoBehaviour {
 			Dictionary<string,object> dict = msg.message;
 			Vector3 pos = new Vector3(dict["posx"].ToFloat(),dict["posy"].ToFloat(),dict["posz"].ToFloat());
 			Vector3 rot = new Vector3(dict["rotx"].ToFloat(),dict["roty"].ToFloat(),dict["rotz"].ToFloat());
+			Vector3 riflerot = new Vector3(dict["riflex"].ToFloat(),dict["rifley"].ToFloat(),dict["riflez"].ToFloat());
 			rival.position = pos;
 			rival.rotation = Quaternion.Euler(rot);
+			rivalRifle.localRotation = Quaternion.Euler(riflerot);
 		}
 	}
 	void OnShoot(MySocketIOClient.MyMessage msg){

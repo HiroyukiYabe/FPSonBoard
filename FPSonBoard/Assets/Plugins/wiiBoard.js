@@ -43,7 +43,7 @@ function OnWiimoteDisconnected (whichRemote: int) {
 }
 
 function Update () {
-
+	var whichRemote : int = 0;
 
 	if(Wii.IsActive(whichRemote))
 	{		

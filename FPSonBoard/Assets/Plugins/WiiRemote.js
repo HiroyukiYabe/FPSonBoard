@@ -52,6 +52,8 @@ function OnWiimoteDisconnected (whichRemote: int) {
 }
 
 function Update () {
+	var whichRemote : int = 1;
+
 if(Wii.IsActive(whichRemote))
 	{
 		var inputDisplay = "";
@@ -119,13 +121,13 @@ if(Wii.IsActive(whichRemote))
 			 assaultRifle.localRotation = Quaternion.Slerp(transform.localRotation,
 				Quaternion.Euler(/* tate*/ (Wii.GetIRPosition(whichRemote).y - 0.5) *  -180.0,/*yoko*/(Wii.GetIRPosition(whichRemote).x - 0.5 )*180.0 ,0.0),5.0);   /*yoko*/
 
-			Debug.Log(wiiAccel.x);
+			//Debug.Log(wiiAccel.x);
 			 }
 			
 
 			
-			Debug.Log(Wii.GetIRPosition(whichRemote).ToString("#.0000"));
-			Debug.Log(Wii.GetWiimoteAcceleration(whichRemote).ToString("#.0000"));
+			//Debug.Log(Wii.GetIRPosition(whichRemote).ToString("#.0000"));
+			//Debug.Log(Wii.GetWiimoteAcceleration(whichRemote).ToString("#.0000"));
 
 			inputDisplay = inputDisplay + "\nIR      "+Wii.GetIRPosition(whichRemote).ToString("#.0000");
 			inputDisplay = inputDisplay + "\nIR rot  "+Wii.GetIRRotation(whichRemote).ToString();

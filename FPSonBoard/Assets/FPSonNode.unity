@@ -1084,6 +1084,7 @@ GameObject:
   - 4: {fileID: 580000273}
   - 114: {fileID: 580000274}
   - 114: {fileID: 580000275}
+  - 114: {fileID: 580000276}
   m_Layer: 0
   m_Name: Wii
   m_TagString: Untagged
@@ -1129,6 +1130,23 @@ MonoBehaviour:
   WiiObject: {fileID: 580000272}
   Player: {fileID: 1996477057}
   WiiBoardInput: {x: 0, y: 0, z: 0}
+  totalRemotes: 0
+--- !u!114 &580000276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 580000272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22de3919d8054cd797b0c840e035763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WiiObject: {fileID: 580000272}
+  assaultRifle: {fileID: 1783247481}
+  buttonBPressed: 0
+  buttonRightPressed: 0
+  buttonLeftPressed: 0
   totalRemotes: 0
 --- !u!1001 &588480027
 Prefab:
@@ -1185,7 +1203,12 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11400014, guid: 895c11b46e11143988a096ada85d8848, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 11400014, guid: 895c11b46e11143988a096ada85d8848, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 895c11b46e11143988a096ada85d8848, type: 2}
   m_RootGameObject: {fileID: 1996477056}
   m_IsPrefabParent: 0
@@ -2685,6 +2708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   moveDir: {x: 0, y: 0, z: 0}
+  rotateFlag: 0
   bullet: {fileID: 100000, guid: 9d9a4cdbde95b4cd4b7d4f3f3fb26cc4, type: 2}
   muzzle: {fileID: 594736067}
   shotSpeed: 10
@@ -3360,6 +3384,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 100154, guid: 33e0ee18e5897493a8ab4d5e260f12f4, type: 2}
+      propertyPath: m_Name
+      value: Wii
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33e0ee18e5897493a8ab4d5e260f12f4, type: 2}
   m_RootGameObject: {fileID: 580000272}
@@ -3500,7 +3528,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1783247481}
-  - 114: {fileID: 1783247482}
   m_Layer: 0
   m_Name: Assault Rifle Low Free
   m_TagString: Untagged
@@ -3534,22 +3561,6 @@ Transform:
   - {fileID: 197498365}
   m_Father: {fileID: 995594037}
   m_RootOrder: 0
---- !u!114 &1783247482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400014, guid: 895c11b46e11143988a096ada85d8848,
-    type: 2}
-  m_PrefabInternal: {fileID: 588480027}
-  m_GameObject: {fileID: 1783247480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f22de3919d8054cd797b0c840e035763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WiiObject: {fileID: 580000272}
-  assaultRifle: {fileID: 1783247481}
-  buttonBPressed: 0
-  totalRemotes: 0
 --- !u!1 &1802321801
 GameObject:
   m_ObjectHideFlags: 0
@@ -4241,6 +4252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   moveDir: {x: 0, y: 0, z: 0}
+  rotateFlag: 0
   bullet: {fileID: 100000, guid: 9d9a4cdbde95b4cd4b7d4f3f3fb26cc4, type: 2}
   muzzle: {fileID: 197498365}
   shotSpeed: 10
