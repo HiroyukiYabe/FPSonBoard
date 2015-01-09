@@ -13,9 +13,9 @@ var Wii;
 var assaultRifle: Transform;
 var input;
 
-var buttonBPressed: boolean;
-var buttonRightPressed: boolean;
-var buttonLeftPressed: boolean; 
+public var buttonBPressed: boolean;
+public var buttonRightPressed: boolean;
+public var buttonLeftPressed: boolean; 
 
 Wii = WiiObject.GetComponent("Wii");
 input = GetComponent("FPSInputController");
