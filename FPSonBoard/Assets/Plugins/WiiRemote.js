@@ -14,6 +14,8 @@ var assaultRifle: Transform;
 var input;
 
 var buttonBPressed: boolean;
+var buttonRightPressed: boolean;
+var buttonLeftPressed: boolean; 
 
 Wii = WiiObject.GetComponent("Wii");
 input = GetComponent("FPSInputController");
@@ -95,6 +97,19 @@ if(Wii.IsActive(whichRemote))
 				buttonBPressed = false;
 			}
 			
+			if(Wii.GetButton(whichRemote, "RIGHT")){
+				Debug.Log("Right pressed");
+				buttonRightPressed = true;
+			} else {
+				buttonRightPressed = false;
+			}
+			
+			if(Wii.GetButton(whichRemote, "LEFT")){
+				Debug.Log("Left pressed");
+				buttonLeftPressed = true;
+			} else {
+				buttonLeftPressed = false;
+			}
 			
 //			assaultRifle.localRotation = Quaternion.Slerp(transform.localRotation,
 //				Quaternion.Euler(/* tate*/wiiAccel.y*90.0,/*yoko*/0.0 ,0.0),5.0);   /*tate*/
