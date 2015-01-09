@@ -1181,6 +1181,10 @@ Prefab:
       propertyPath: WiiObject
       value: 
       objectReference: {fileID: 580000272}
+    - target: {fileID: 11400000, guid: 895c11b46e11143988a096ada85d8848, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 895c11b46e11143988a096ada85d8848, type: 2}
   m_RootGameObject: {fileID: 1996477056}

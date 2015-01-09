@@ -32,7 +32,30 @@ public class PlayerController : MonoBehaviour {
 		shotTimer += Time.deltaTime;
 
 		//rigidbody.velocity=moveDir*moveSpeed;
-		CC.SimpleMove((transform.rotation*moveDir)*moveSpeed);
+		MovelikeSkateBoard(moveDir);
+		//SimpleMove(moveDir);
+	}
+
+	void SimpleMove(Vector3 vec){
+		CC.SimpleMove((transform.rotation*vec)*moveSpeed);
+	}
+
+	void MovelikeSkateBoard(Vector3 vec){
+		vec = Quaternion.AngleAxis(-90f,Vector3.up) * vec;
+		Debug.Log(vec);
+		Vector3 proj = Vector3.Project(vec,Vector3.forward);
+		CC.SimpleMove((transform.rotation*proj)*moveSpeed);
+
+		if(Mathf.Abs(vec.x)>0.3f && Mathf.Sin(vec.z)>0f) 
+			transform.rotation = Quaternion.Lerp(transform.rotation,
+			    transform.rotation*Quaternion.FromToRotation(Vector3.forward,Vector3.right*Mathf.Sign(vec.x*vec.z)),Mathf.Abs(vec.z)*Time.deltaTime);
+		//transform.rotation = 
+
+		CC.SimpleMove((transform.rotation*proj)*moveSpeed);
+	}
+
+	void MovewithRemoteController(Vector3 vec){
+
 	}
 
 	public void Shoot(){

@@ -27,8 +27,9 @@ public class NodeClient : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//Vector3 input = new Vector3(Input.GetAxis("Horizontal"),0f,Input.GetAxis("Vertical"));
-		Vector3 input = Wii.WiiBoardInput;
+		Vector3 input = new Vector3(Input.GetAxis("Horizontal"),0f,Input.GetAxis("Vertical"));
+		if(input == Vector3.zero)
+			input = Wii.WiiBoardInput/30f;
 
 		if(sock!=null && sock.isConnected){
 			//Move(input);
@@ -37,7 +38,7 @@ public class NodeClient : MonoBehaviour {
 			sock.OnUpdate();
 		}
 		//else playerCon.moveDir = input;
-		playerCon.moveDir = input/30f;
+		playerCon.moveDir = input;
 	}
 
 
