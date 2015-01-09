@@ -1,4 +1,4 @@
-﻿static var whichRemote: int;
+﻿ static var whichRemote: int;
 
 //var theIRMain: GUITexture;
 //var theIR1:    GUITexture;
@@ -13,7 +13,9 @@ var Wii;
 var assaultRifle: Transform;
 var input;
 
-var buttonBPressed: boolean;
+public var buttonBPressed: boolean;
+public var buttonRightPressed: boolean;
+public var buttonLeftPressed: boolean; 
 
 Wii = WiiObject.GetComponent("Wii");
 input = GetComponent("FPSInputController");
@@ -94,7 +96,36 @@ if(Wii.IsActive(whichRemote))
 			} else {
 				buttonBPressed = false;
 			}
+			
+			if(Wii.GetButton(whichRemote, "RIGHT")){
+				Debug.Log("Right pressed");
+				buttonRightPressed = true;
+			} else {
+				buttonRightPressed = false;
+			}
+			
+			if(Wii.GetButton(whichRemote, "LEFT")){
+				Debug.Log("Left pressed");
+				buttonLeftPressed = true;
+			} else {
+				buttonLeftPressed = false;
+			}
+			
+//			assaultRifle.localRotation = Quaternion.Slerp(transform.localRotation,
+//				Quaternion.Euler(/* tate*/wiiAccel.y*90.0,/*yoko*/0.0 ,0.0),5.0);   /*tate*/
+			 if (Wii.GetIRPosition(whichRemote).x > -1.0){
+//			 assaultRifle.localRotation = Quaternion.Slerp(transform.localRotation,
+//				Quaternion.Euler(/* tate*/ wiiAccel.y*90.0,/*yoko*/(Wii.GetIRPosition(whichRemote).x - 0.5 )*180.0 ,0.0),5.0);   /*yoko*/
+			 assaultRifle.localRotation = Quaternion.Slerp(transform.localRotation,
+				Quaternion.Euler(/* tate*/ (Wii.GetIRPosition(whichRemote).y - 0.5) *  -180.0,/*yoko*/(Wii.GetIRPosition(whichRemote).x - 0.5 )*180.0 ,0.0),5.0);   /*yoko*/
 
+			Debug.Log(wiiAccel.x);
+			 }
+			
+
+			
+			Debug.Log(Wii.GetIRPosition(whichRemote).ToString("#.0000"));
+			Debug.Log(Wii.GetWiimoteAcceleration(whichRemote).ToString("#.0000"));
 
 			inputDisplay = inputDisplay + "\nIR      "+Wii.GetIRPosition(whichRemote).ToString("#.0000");
 			inputDisplay = inputDisplay + "\nIR rot  "+Wii.GetIRRotation(whichRemote).ToString();
