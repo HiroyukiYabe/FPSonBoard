@@ -32,6 +32,10 @@ Material:
         first:
           name: _Shininess
         second: .623071253
+      data:
+        first:
+          name: _Alpha
+        second: .392857164
     m_Colors:
       data:
         first:

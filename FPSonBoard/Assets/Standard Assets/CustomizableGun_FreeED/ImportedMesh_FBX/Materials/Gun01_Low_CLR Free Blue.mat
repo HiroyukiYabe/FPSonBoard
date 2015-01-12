@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Gun01_Low_CLR Free Blue
-  m_Shader: {fileID: 4, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: e98df625e09ff4ac4b2b3a5ed9e77f6b, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -32,11 +32,15 @@ Material:
         first:
           name: _Shininess
         second: .623071253
+      data:
+        first:
+          name: _Alpha
+        second: .428571433
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: .048951149, g: 0, b: 1, a: 1}
+        second: {r: 1, g: .641379297, b: 0, a: 1}
       data:
         first:
           name: _SpecColor
