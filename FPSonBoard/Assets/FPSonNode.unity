@@ -103,6 +103,7 @@ RectTransform:
   m_Children:
   - {fileID: 833940318}
   - {fileID: 956522916}
+  - {fileID: 1719103109}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 0}
@@ -2671,14 +2672,14 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1834745314}
   m_GameObject: {fileID: 1209354253}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7026bc5b1180947f5bd6119ef4fa82a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   life: 100
   damage: 20
-  UIText: {fileID: 956522915}
+  invisibleTime: 0
 --- !u!143 &1209354256
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3520,6 +3521,72 @@ Transform:
   - {fileID: 283374217}
   m_Father: {fileID: 1485937593}
   m_RootOrder: 0
+--- !u!1 &1719103108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1719103109}
+  - 222: {fileID: 1719103111}
+  - 114: {fileID: 1719103110}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1719103109
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1719103108}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 13780467}
+  m_RootOrder: 2
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -75.4889984, y: -12.9650002}
+  m_SizeDelta: {x: -927, y: -311}
+  m_Pivot: {x: .5, y: .5}
+--- !u!114 &1719103110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1719103108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Mat: {fileID: 0}
+  m_Color: {r: .1953125, g: .1953125, b: .1953125, a: 1}
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 40
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: New Text
+--- !u!222 &1719103111
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1719103108}
 --- !u!1 &1783247480
 GameObject:
   m_ObjectHideFlags: 0
@@ -3763,6 +3830,10 @@ Prefab:
       propertyPath: UIText
       value: 
       objectReference: {fileID: 956522915}
+    - target: {fileID: 11400012, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f13d820adf0c483fbc03ba78b1f4d5e, type: 2}
   m_RootGameObject: {fileID: 1209354253}
@@ -3850,9 +3921,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 1856944219}
   - 114: {fileID: 1856944218}
+  - 114: {fileID: 1856944220}
   m_Layer: 0
-  m_Name: Client
-  m_TagString: Untagged
+  m_Name: GameController
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3880,6 +3952,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!114 &1856944220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1856944217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dca99dfe7ad84249884a92e07043662, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rivallife: 0
+  playerUIText: {fileID: 833940315}
+  rivalUIText: {fileID: 956522915}
+  finishText: {fileID: 1719103108}
 --- !u!1 &1857320229
 GameObject:
   m_ObjectHideFlags: 0
@@ -4342,7 +4429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 100
   damage: 20
-  UIText: {fileID: 833940315}
+  invisibleTime: 0
 --- !u!114 &1996477063
 MonoBehaviour:
   m_ObjectHideFlags: 0

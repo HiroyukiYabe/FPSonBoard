@@ -65,8 +65,8 @@ public class MySocketIOClient {
 			
 			int sen = int.Parse(msg["sender"].ToString());
 			string eve = msg["event"].ToString();
-			DICT mes = msg["message"] as DICT;
-
+			DICT mes = msg.ContainsKey("message") ? msg["message"] as DICT : null;
+			
 			//if(sen!=0){//Node.jsに接続直後、ID:0（誰のIDでもない）からのメッセージを受信するバグが発生したため
 				MyMessage message = new MyMessage(sen,eve,mes);
 				msgQueue.Enqueue(message);
@@ -107,6 +107,15 @@ public class MySocketIOClient {
 		dict.Add("sender",playerID);
 		dict.Add("event",_event);
 		dict.Add("message",message);
+		string json = MiniJSON.Json.Serialize(dict);
+		//イベント名をクラス外部で自由に設定するため、イベント名はメッセージそのものに持たせる
+		//Node Serverとは、全てイベント名”my message”としてやり取りする
+		socket.Emit("my message",json);
+	}
+	public void Emit(string _event){
+		DICT dict = new DICT();
+		dict.Add("sender",playerID);
+		dict.Add("event",_event);
 		string json = MiniJSON.Json.Serialize(dict);
 		//イベント名をクラス外部で自由に設定するため、イベント名はメッセージそのものに持たせる
 		//Node Serverとは、全てイベント名”my message”としてやり取りする

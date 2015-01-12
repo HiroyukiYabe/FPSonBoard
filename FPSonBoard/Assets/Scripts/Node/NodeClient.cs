@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using MySocketIO;
 
 public class NodeClient : MonoBehaviour {
-	
-	MySocketIOClient sock;
+
+	[HideInInspector]
+	public MySocketIOClient sock;
 	//FPSInputController input;
 	Transform player;
 	PlayerController playerCon;
@@ -20,6 +21,8 @@ public class NodeClient : MonoBehaviour {
 	
 	// Use this for initialization
 	void Awake () {
+		sock = new MySocketIOClient(text);
+
 		//input = GameObject.FindWithTag("Player").GetComponent<FPSInputController>();
 		player = GameObject.FindWithTag("Player").transform;
 		playerCon = player.GetComponent<PlayerController>();
@@ -66,8 +69,7 @@ public class NodeClient : MonoBehaviour {
 		sock.Emit("SyncPos",dic);
 	}
 	void Shoot(){
-		Dictionary<string, object> dic = new Dictionary<string,object>();
-		sock.Emit("Shoot",dic);
+		sock.Emit("Shoot");
 	}
 
 	void OnMove(MySocketIOClient.MyMessage msg){
@@ -93,6 +95,15 @@ public class NodeClient : MonoBehaviour {
 		if(msg.isMine) playerCon.Shoot();
 		else rivalCon.Shoot();
 	}
+	void OnDamaged(MySocketIOClient.MyMessage msg){
+		if(!msg.isMine){
+			GetComponent<GameController>().rivallife = msg.message["life"].ToInt();
+		}
+	}
+	void OnDie(MySocketIOClient.MyMessage msg){
+		if(msg.isMine) GetComponent<GameController>().lose();
+		else GetComponent<GameController>().win();
+	}
 
 	private string text = "http://127.0.0.1:8888/";
 	void OnGUI () {
@@ -100,12 +111,14 @@ public class NodeClient : MonoBehaviour {
 		if (sock==null || !sock.isConnected) {
 			if (GUILayout.Button ("start Connection")) {
 				Debug.Log ("Try Connection");
-				if(sock==null){
-					sock = new MySocketIOClient(text);
+				//if(sock==null){
+				//	sock = new MySocketIOClient(text);
 					sock.AddListener("Move",OnMove);
 					sock.AddListener("SyncPos",OnSyncPos);
 					sock.AddListener("Shoot",OnShoot);
-				}
+				//	sock.AddListener("Damaged",OnDamaged);
+				//	sock.AddListener("Die",OnDie);
+				//}
 				sock.Open();
 			}
 		} else {
