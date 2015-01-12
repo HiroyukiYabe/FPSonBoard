@@ -34,9 +34,9 @@ public class PlayerController : MonoBehaviour {
 
 		//rigidbody.velocity=moveDir*moveSpeed;
 
-		//MovelikeSkateBoard(moveDir);
+		MovelikeSkateBoard(moveDir);
 		//MovewithRemoteController(moveDir,rotateFlag);
-		SimpleMove(moveDir);
+		//SimpleMove(moveDir);
 	}
 
 	void SimpleMove(Vector3 vec){
@@ -47,11 +47,11 @@ public class PlayerController : MonoBehaviour {
 		vec = Quaternion.AngleAxis(-90f,Vector3.up) * vec;
 		//Debug.Log(vec);
 		Vector3 proj = Vector3.Project(vec,Vector3.forward);
-		CC.SimpleMove((transform.rotation*proj)*moveSpeed);
+		//CC.SimpleMove((transform.rotation*proj)*moveSpeed);
 
 		if(Mathf.Abs(vec.x)>0.3f && Mathf.Sin(vec.z)>0f) 
 			transform.rotation = Quaternion.Lerp(transform.rotation,
-			    transform.rotation*Quaternion.FromToRotation(Vector3.forward,Vector3.right*Mathf.Sign(vec.x*vec.z)),Mathf.Abs(vec.z)*Time.deltaTime);
+			    transform.rotation*Quaternion.FromToRotation(Vector3.forward,Vector3.right*Mathf.Sign(vec.x*vec.z)),Mathf.Abs(vec.z)*1.3f*Time.deltaTime);
 		//transform.rotation = 
 
 		CC.SimpleMove((transform.rotation*proj)*moveSpeed);
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour {
 
 	void MovewithRemoteController(Vector3 vec, float rotate){
 		CC.SimpleMove((transform.rotation*vec)*moveSpeed);
-		transform.Rotate(Vector3.up,rotate*30f*Time.deltaTime);
+		transform.Rotate(Vector3.up,rotate*70f*Time.deltaTime);
 	}
 
 	public void Shoot(){
