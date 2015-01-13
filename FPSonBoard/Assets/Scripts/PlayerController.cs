@@ -34,8 +34,8 @@ public class PlayerController : MonoBehaviour {
 
 		//rigidbody.velocity=moveDir*moveSpeed;
 
-		MovelikeSkateBoard(moveDir);
-		//MovewithRemoteController(moveDir,rotateFlag);
+		//MovelikeSkateBoard(moveDir);
+		MovewithRemoteController(moveDir,rotateFlag);
 		//SimpleMove(moveDir);
 	}
 
