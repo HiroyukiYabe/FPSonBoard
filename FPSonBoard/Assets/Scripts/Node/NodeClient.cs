@@ -105,19 +105,19 @@ public class NodeClient : MonoBehaviour {
 		else GetComponent<GameController>().win();
 	}
 
-	private string text = "http://127.0.0.1:8888/";
+	private string text = "http://157.82.7.206:8888/";
 	void OnGUI () {
 		text = GUILayout.TextField(text);
 		if (sock==null || !sock.isConnected) {
 			if (GUILayout.Button ("start Connection")) {
 				Debug.Log ("Try Connection");
 				//if(sock==null){
-				//	sock = new MySocketIOClient(text);
+					sock = new MySocketIOClient(text);
 					sock.AddListener("Move",OnMove);
 					sock.AddListener("SyncPos",OnSyncPos);
 					sock.AddListener("Shoot",OnShoot);
-				//	sock.AddListener("Damaged",OnDamaged);
-				//	sock.AddListener("Die",OnDie);
+					sock.AddListener("Damaged",OnDamaged);
+					sock.AddListener("Die",OnDie);
 				//}
 				sock.Open();
 			}
