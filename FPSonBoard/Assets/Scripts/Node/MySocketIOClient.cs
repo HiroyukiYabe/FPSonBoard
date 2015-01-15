@@ -18,6 +18,7 @@ public class MySocketIOClient {
 	string _uuid;
 	static int playerID;//Node Serverから返される一意の番号. 現在の実装では切断して再接続すると番号が変わる
 	public int myID {get {return playerID;}}
+		public bool isReady;
 
 	//独自に定義したメッセージの容れ物
 	public class MyMessage{
@@ -77,6 +78,48 @@ public class MySocketIOClient {
 		};
 	}
 
+		public MySocketIOClient(){connected=false;}
+		public void SetURL(string url){
+			guid=System.Guid.NewGuid();
+			_uuid=guid.ToString();
+			connected=false;
+			socket = new SocketIOClient.Client(url);
+			
+			socket.On("connect", (fn) => {
+				Debug.Log ("succeed connection - socket");
+				Dictionary<string, string> args = new Dictionary<string, string>();
+				args.Add("GUID", _uuid);
+				socket.Emit("connected", args);
+			});
+			socket.On("playerID", (_playerID) => {
+				connected=true;
+				playerID = _playerID.Json.GetFirstArgAs<int>();
+				Debug.Log ("playerID:"+playerID);
+			});
+			socket.On("ready", (fn) => {
+				Debug.Log ("Ready");
+			});
+			//イベント名をクラス外部で自由に設定するため、イベント名はメッセージそのものに持たせる
+			//Node Serverとは、全てイベント名”my message”としてやり取りする
+			socket.On("my message", (data) => {
+				string jsonmsg = data.Json.args[0].ToString();
+				//Debug.Log("RECV message:"+jsonmsg);
+				var msg = MiniJSON.Json.Deserialize(jsonmsg) as DICT;
+				
+				int sen = int.Parse(msg["sender"].ToString());
+				string eve = msg["event"].ToString();
+				DICT mes = msg.ContainsKey("message") ? msg["message"] as DICT : null;
+				
+				//if(sen!=0){//Node.jsに接続直後、ID:0（誰のIDでもない）からのメッセージを受信するバグが発生したため
+				MyMessage message = new MyMessage(sen,eve,mes);
+				msgQueue.Enqueue(message);
+				//}
+			});
+			socket.Error += (sender, e) => {
+				Debug.LogWarning ("socket Error: " + e.Message );//+ ";"+e.Exception.Message);
+			};
+		}
+
 	//UnityのGameObjectを触れるのはメインスレッドのみなので、受信したメッセージはメインスレッドで取り出す
 	public void OnUpdate(){
 		while(this.msgQueue.Count>0){
@@ -98,7 +141,7 @@ public class MySocketIOClient {
 		this.msgQueue.Clear();
 		socket.Close();
 	}
-	public bool isConnected{get{return socket.IsConnected && this.connected;}}
+	public bool isConnected{get{return socket!=null && socket.IsConnected && this.connected;}}
 
 	//メッセージ送信用の拡張関数
 	//第1引数のイベント名で第2引数のメッセージ（辞書形式）を送信する

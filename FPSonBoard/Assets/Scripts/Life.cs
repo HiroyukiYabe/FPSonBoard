@@ -9,7 +9,7 @@ public class Life : MonoBehaviour {
 
 	public int life;
 	public int damage;
-	public float invisibleTime;
+	float invisibleTime = 1.0f;
 	float timer;
 
 	//public GameObject UIText;
@@ -33,6 +33,7 @@ public class Life : MonoBehaviour {
 	}
 
 	void TakeDamage(){
+		if(life>0){
 		timer = 0f;
 		life -= damage;
 		Dictionary<string, object> dic = new Dictionary<string,object>();
@@ -42,6 +43,7 @@ public class Life : MonoBehaviour {
 			life = 0;
 			GameObject.FindWithTag("GameController").GetComponent<NodeClient>().sock.Emit("Die");
 			Debug.Log("FINISH!!");
+		}
 		}
 	}
 

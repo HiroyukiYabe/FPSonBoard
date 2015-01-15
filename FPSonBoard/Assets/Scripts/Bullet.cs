@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindWithTag ("Player").transform;
-		Destroy (this.gameObject,5f);
+		Destroy (this.gameObject,4f);
 	}
 	
 	// Update is called once per frame
@@ -20,6 +20,14 @@ public class Bullet : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col){
 		Debug.Log ("Bullet: OnTriggerEnter");
+		this.SendMessage ("Explode");
+		renderer.enabled = false;
+		//this.enabled = false;
+		Destroy (this);
+	}
+
+	void OnCollisionEnter(Collision col){
+		Debug.Log ("Bullet: OnCollisionEnter");
 		this.SendMessage ("Explode");
 		renderer.enabled = false;
 		//this.enabled = false;

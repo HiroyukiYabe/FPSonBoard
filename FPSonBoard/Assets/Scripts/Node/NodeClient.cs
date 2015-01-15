@@ -21,7 +21,10 @@ public class NodeClient : MonoBehaviour {
 	
 	// Use this for initialization
 	void Awake () {
-		sock = new MySocketIOClient(text);
+		sock = new MySocketIOClient();
+		sock.AddListener("Move",OnMove);
+		sock.AddListener("SyncPos",OnSyncPos);
+		sock.AddListener("Shoot",OnShoot);
 
 		//input = GameObject.FindWithTag("Player").GetComponent<FPSInputController>();
 		player = GameObject.FindWithTag("Player").transform;
@@ -43,13 +46,17 @@ public class NodeClient : MonoBehaviour {
 		if(sock!=null && sock.isConnected){
 			//Move(input);
 			SyncPos();
-			if(Input.GetButton ("Fire1") || (WRemote != null && WRemote.buttonBPressed)) Shoot();
+			if(GameController.isplaying){
+				if(Input.GetButton ("Fire1") || (WRemote != null && WRemote.buttonBPressed)) Shoot();
+			}
+
 			sock.OnUpdate();
 		}
 		//else playerCon.moveDir = input;
 		playerCon.moveDir = input;
 		playerCon.rotateFlag = WRemote==null ? 0f : 
 			(WRemote.buttonRightPressed ? 1f : (WRemote.buttonLeftPressed ? -1f : 0f) );
+
 	}
 
 
@@ -95,29 +102,29 @@ public class NodeClient : MonoBehaviour {
 		if(msg.isMine) playerCon.Shoot();
 		else rivalCon.Shoot();
 	}
-	void OnDamaged(MySocketIOClient.MyMessage msg){
-		if(!msg.isMine){
-			GetComponent<GameController>().rivallife = msg.message["life"].ToInt();
-		}
-	}
-	void OnDie(MySocketIOClient.MyMessage msg){
-		if(msg.isMine) GetComponent<GameController>().lose();
-		else GetComponent<GameController>().win();
-	}
+//	void OnDamaged(MySocketIOClient.MyMessage msg){
+//		if(!msg.isMine){
+//			GetComponent<GameController>().rivallife = msg.message["life"].ToInt();
+//		}
+//	}
+//	void OnDie(MySocketIOClient.MyMessage msg){
+//		if(msg.isMine) GetComponent<GameController>().lose();
+//		else GetComponent<GameController>().win();
+//	}
 
-	private string text = "http://157.82.7.206:8888/";
+	private string text = "http://127.0.0.1:8888/";
 	void OnGUI () {
 		text = GUILayout.TextField(text);
 		if (sock==null || !sock.isConnected) {
 			if (GUILayout.Button ("start Connection")) {
 				Debug.Log ("Try Connection");
 				//if(sock==null){
-					sock = new MySocketIOClient(text);
-					sock.AddListener("Move",OnMove);
-					sock.AddListener("SyncPos",OnSyncPos);
-					sock.AddListener("Shoot",OnShoot);
-					sock.AddListener("Damaged",OnDamaged);
-					sock.AddListener("Die",OnDie);
+				sock.SetURL(text);
+				//sock.AddListener("Move",OnMove);
+				//sock.AddListener("SyncPos",OnSyncPos);
+				//sock.AddListener("Shoot",OnShoot);
+				//sock.AddListener("Damaged",OnDamaged);
+				//sock.AddListener("Die",OnDie);
 				//}
 				sock.Open();
 			}

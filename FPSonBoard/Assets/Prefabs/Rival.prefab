@@ -2823,8 +2823,8 @@ MonoBehaviour:
   rotateFlag: 0
   bullet: {fileID: 100000, guid: 9d9a4cdbde95b4cd4b7d4f3f3fb26cc4, type: 2}
   muzzle: {fileID: 400064}
-  shotSpeed: 10
-  shotInterval: .200000003
+  shotSpeed: 20
+  shotInterval: .349999994
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
